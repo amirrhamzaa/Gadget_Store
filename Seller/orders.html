@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders - Gadget Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">Gadget Store</div>
+
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="orders.html" class="active">Orders</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="#">Sales Reports</a>
+        <a href="#">Store Settings</a>
+
+        <div class="logout"><a href="#">Logout</a></div>
+
+</div>
+
+<div class="main">
+    <div class="topbar">
+        <h1>Orders</h1>
+        <h3>John Smith</h3>
+    </div>
+    
+    <div class="content"><p class="welcome">Manage customer orders.</p>
+        
+        <div class="table-box">
+            <h2>All Orders</h2>
+            
+            <table>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+                
+                <tr>
+                    <td>#10231</td>
+                    <td>Alice Nguyen</td>
+                    <td>2026-08-19</td>
+                    <td>$89.00</td>
+                    <td><select onchange="changeStatus(this)">
+                        <option>Pending</option>
+                        <option>Processing</option>
+                        <option>Shipped</option>
+                        <option>Delivered</option>
+                    </select>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>#10230</td>
+                <td>Mark Tran</td>
+                <td>2026-08-19</td>
+                <td>$45.50</td>
+                <td><select onchange="changeStatus(this)">
+                    <option>Processing</option>
+                    <option>Pending</option>
+                    <option>Shipped</option>
+                    <option>Delivered</option>
+                </select>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>#10229</td>
+            <td>Linh Pham</td>
+            <td>2026-08-18</td>
+            <td>$210.00</td>
+            <td><select onchange="changeStatus(this)">
+                <option>Shipped</option>
+                <option>Pending</option>
+                <option>Processing</option>
+                <option>Delivered</option>
+            </select>
+        </td>
+        </tr>
+        
+        <tr>
+            <td>#10228</td>
+            <td>David Le</td>
+            <td>2026-08-18</td>
+            <td>$32.00</td>
+            <td><select onchange="changeStatus(this)">
+                <option>Delivered</option>
+                <option>Pending</option>
+                <option>Processing</option>
+                <option>Shipped</option>
+            </select>
+            </td>
+        </tr>
+    
+    </table>
+    </div>
+    </div>
+</div>
+<script src="script.js"></script>
+
+</body>
+</html>
