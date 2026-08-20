@@ -37,11 +37,6 @@ searchBox.addEventListener("keyup", function () {
 });
 
 
-// ---------- 4. Update Status button ----------
-// Clicking the button moves the order to the next status:
-// Pending -> Picked Up -> In Transit -> Completed
-// It also updates the small counter numbers at the top.
-
 const statusOrder = ["Pending", "Picked Up", "In Transit", "Completed"];
 
 const updateButtons = document.querySelectorAll(".update-btn");
@@ -56,13 +51,13 @@ updateButtons.forEach(function (button) {
     const currentText = statusBadge.textContent.trim();
     const currentIndex = statusOrder.indexOf(currentText);
 
-    // if it's already "Completed", do nothing more
+ 
     if (currentIndex === statusOrder.length - 1) {
       alert("This order is already completed!");
       return;
     }
 
-    // move to the next status
+ 
     const nextStatus = statusOrder[currentIndex + 1];
     statusBadge.textContent = nextStatus;
 
@@ -73,7 +68,7 @@ updateButtons.forEach(function (button) {
   });
 });
 
-// this function gives the correct CSS class name for a status
+
 function getStatusClass(status) {
   if (status === "Pending") return "status-pending";
   if (status === "Picked Up") return "status-picked";
@@ -81,7 +76,7 @@ function getStatusClass(status) {
   if (status === "Completed") return "status-completed";
 }
 
-// this function recalculates Pending / Completed numbers at the top
+
 function updateCounters() {
   const allStatuses = document.querySelectorAll(".status");
 
