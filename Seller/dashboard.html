@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seller Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+    <div class="logo">Gadget Store</div>
+
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="products.html">Products</a>
+    <a href="orders.html">Orders</a>
+    <a href="inventory.html">Inventory</a>
+    <a href="#">Sales Reports</a>
+    <a href="#">Store Settings</a>
+
+    <div class="logout"><a href="#">Logout</a></div>
+
+</div>
+
+<div class="main">
+    <div class="topbar">
+        <h1>Seller Dashboard</h1>
+        <h3>John Smith</h3>
+    </div>
+    
+    
+    <div class="content">
+        <p class="welcome">Welcome back, John. Here is your store performance today</p>
+        
+        <div class="cards">
+            <div class="card">
+                <h3>Total Products</h3>
+                <h1>128</h1>
+                <p>Active Listings</p>
+            </div>
+            
+            
+            <div class="card">
+                <h3>Pending Orders</h3>
+                <h1>14</h1>
+                <p>This Month</p>
+            </div>
+            
+            
+            <div class="card">
+                <h3>Today's Sales</h3>
+                <h1>$1,240</h1>
+                <p>This Month</p>
+            </div>
+
+        </div>
+        
+        
+        <div class="rating-card">
+            <h3>Store Rating</h3>
+            <h2>4.6 / 5</h2>
+            <p>From 89 reviews</p>
+        </div>
+        
+        <div class="table-box">
+            <div class="table-title">
+                <h2>Recent Orders</h2>
+                <a href="orders.html">View All</a>
+            </div>
+            
+            
+            <table>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+
+
+                <tr>
+                    <td>#10231</td>
+                    <td>Alice Nguyen</td>
+                    <td>2026-08-19</td>
+                    <td>$89.00</td>
+                    <td>
+                        <span class="pending">Pending</span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>#10230</td>
+                    <td>Mark Tran</td>
+                    <td>2026-08-19</td>
+                    <td>$45.50</td>
+                    <td>
+                        <span class="processing">Processing</span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>#10229</td>
+                    <td>Linh Pham</td>
+                    <td>2026-08-18</td>
+                    <td>$210.00</td>
+                    <td>
+                        <span class="shipped">Shipped</span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>#10228</td>
+                    <td>David Le</td>
+                    <td>2026-08-18</td>
+                    <td>$32.00</td>
+                    <td>
+                        <span class="delivered">Delivered</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
