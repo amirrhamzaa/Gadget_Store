@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Admin Dashboard - Products</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body onload="return init();">
+
+<div class="admin-layout">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+            <div class="logo-icon">
+                <i data-lucide="shopping-bag"></i>
+            </div>
+            <span>Gadget Store</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="#" class="nav-item active">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i data-lucide="store"></i>
+                <span>Sellers</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i data-lucide="package"></i>
+                <span>Products</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i data-lucide="shopping-cart"></i>
+                <span>Orders</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i data-lucide="settings"></i>
+                <span>Account Settings</span>
+            </a>
+
+        </nav>
+
+        <a href="#" class="nav-item logout">
+            <i data-lucide="log-out"></i>
+            <span>Logout</span>
+        </a>
+
+    </aside>
+
+
+    <main class="main-area" id="mainArea">
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <button class="menu-btn" id="menuBtn" onclick="return toggleMenu();">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <h1>Admin Dashboard</h1>
+
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+            <div class="page-heading">
+
+                <h2>Products</h2>
+
+                <button class="add-product-btn">
+                    <i data-lucide="plus"></i>
+                    Add New Product
+                </button>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th class="product-heading">Product</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="productTable">
+
+                        <tr
+                            data-name="Dell Inspiron 15"
+                            data-category="Laptops"
+                            data-status="Active"
+                        >
+
+                            <td>
+                                <div class="product-info">
+
+                                    <div class="product-image">
+                                        <img
+                                            src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=300&q=80"
+                                            alt="Dell Inspiron 15"
+                                        >
+                                    </div>
+
+                                    <div>
+                                        <h3>Dell Inspiron 15</h3>
+
+                                        <p>
+                                            15.6" FHD Display, Intel i5 12th Gen,<br>
+                                            8GB RAM, 512GB SSD
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>$699.99</td>
+
+                            <td>25</td>
+
+                            <td>Laptops</td>
+
+                            <td>
+                                <span class="status active-status">Active</span>
+                            </td>
+
+                            <td>
+                                <div class="actions">
+
+                                    <button title="View" onclick="return viewProduct(this);">
+                                        <i data-lucide="eye"></i>
+                                    </button>
+
+                                    <button title="Edit" onclick="return editProduct(this);">
+                                        <i data-lucide="pencil"></i>
+                                    </button>
+
+                                    <button class="delete-btn" title="Delete" onclick="return deleteProduct(this);">
+                                        <i data-lucide="trash-2"></i>
+                                    </button>
+
+                                </div>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            data-name="HP Pavilion 14"
+                            data-category="Laptops"
+                            data-status="Active"
+                        >
+
+                            <td>
+                                <div class="product-info">
+
+                                    <div class="product-image">
+                                        <img
+                                            src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=300&q=80"
+                                            alt="HP Pavilion 14"
+                                        >
+                                    </div>
+
+                                    <div>
+                                        <h3>HP Pavilion 14</h3>
+
+                                        <p>
+                                            14" FHD Display, Intel i5 11th Gen,<br>
+                                            8GB RAM, 512GB SSD
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>$629.99</td>
+
+                            <td>18</td>
+
+                            <td>Laptops</td>
+
+                            <td>
+                                <span class="status active-status">Active</span>
+                            </td>
+
+                            <td>
+                                <div class="actions">
+                                    <button onclick="return viewProduct(this);">
+                                        <i data-lucide="eye"></i>
+                                    </button>
+
+                                    <button onclick="return editProduct(this);">
+                                        <i data-lucide="pencil"></i>
+                                    </button>
+
+                                    <button class="delete-btn" onclick="return deleteProduct(this);">
+                                        <i data-lucide="trash-2"></i>
+                                    </button>
+                                </div>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            data-name="Asus ROG Strix G15"
+                            data-category="Laptops"
+                            data-status="Active"
+                        >
+
+                            <td>
+                                <div class="product-info">
+
+                                    <div class="product-image">
+                                        <img
+                                            src="https://images.unsplash.com/photo-1593642634367-d91a135587b5?auto=format&fit=crop&w=300&q=80"
+                                            alt="Asus ROG Strix G15"
+                                        >
+                                    </div>
+
+                                    <div>
+                                        <h3>Asus ROG Strix G15</h3>
+
+                                        <p>
+                                            15.6" FHD 144Hz, Ryzen 7 6800H,<br>
+                                            16GB RAM, 512GB SSD, RTX 3050
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>$1,099.99</td>
+
+                            <td>10</td>
+
+                            <td>Laptops</td>
+
+                            <td>
+                                <span class="status active-status">Active</span>
+                            </td>
+
+                            <td>
+                                <div class="actions">
+                                    <button onclick="return viewProduct(this);">
+                                        <i data-lucide="eye"></i>
+                                    </button>
+
+                                    <button onclick="return editProduct(this);">
+                                        <i data-lucide="pencil"></i>
+                                    </button>
+
+                                    <button class="delete-btn" onclick="return deleteProduct(this);">
+                                        <i data-lucide="trash-2"></i>
+                                    </button>
+                                </div>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            data-name="Lenovo IdeaPad 3"
+                            data-category="Laptops"
+                            data-status="Active"
+                        >
+
+                            <td>
+                                <div class="product-info">
+
+                                    <div class="product-image">
+                                        <img
+                                            src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=300&q=80"
+                                            alt="Lenovo IdeaPad 3"
+                                        >
+                                    </div>
+
+                                    <div>
+                                        <h3>Lenovo IdeaPad 3</h3>
+
+                                        <p>
+                                            15.6" FHD Display, Intel i3 11th Gen,<br>
+                                            8GB RAM, 256GB SSD
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>$439.99</td>
+
+                            <td>30</td>
+
+                            <td>Laptops</td>
+
+                            <td>
+                                <span class="status active-status">Active</span>
+                            </td>
+
+                            <td>
+                                <div class="actions">
+                                    <button onclick="return viewProduct(this);">
+                                        <i data-lucide="eye"></i>
+                                    </button>
+
+                                    <button onclick="return editProduct(this);">
+                                        <i data-lucide="pencil"></i>
+                                    </button>
+
+                                    <button class="delete-btn" onclick="return deleteProduct(this);">
+                                        <i data-lucide="trash-2"></i>
+                                    </button>
+                                </div>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            data-name="Acer Aspire 5"
+                            data-category="Laptops"
+                            data-status="Active"
+                        >
+
+                            <td>
+                                <div class="product-info">
+
+                                    <div class="product-image">
+                                        <img
+                                            src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=300&q=80"
+                                            alt="Acer Aspire 5"
+                                        >
+                                    </div>
+
+                                    <div>
+                                        <h3>Acer Aspire 5</h3>
+
+                                        <p>
+                                            15.6" FHD Display, Intel i5 12th Gen,<br>
+                                            8GB RAM, 512GB SSD
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>$599.99</td>
+
+                            <td>22</td>
+
+                            <td>Laptops</td>
+
+                            <td>
+                                <span class="status active-status">Active</span>
+                            </td>
+
+                            <td>
+                                <div class="actions">
+                                    <button onclick="return viewProduct(this);">
+                                        <i data-lucide="eye"></i>
+                                    </button>
+
+                                    <button onclick="return editProduct(this);">
+                                        <i data-lucide="pencil"></i>
+                                    </button>
+
+                                    <button class="delete-btn" onclick="return deleteProduct(this);">
+                                        <i data-lucide="trash-2"></i>
+                                    </button>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+
+                <div class="table-footer">
+
+                    <p id="productCount">
+                        Showing 1 to 5 of 25 products
+                    </p>
+
+                    <div class="pagination">
+
+                        <button class="page-arrow">
+                            <i data-lucide="chevron-left"></i>
+                        </button>
+
+                        <button class="page-number active-page" onclick="return selectPage(this);">1</button>
+                        <button class="page-number" onclick="return selectPage(this);">2</button>
+                        <button class="page-number" onclick="return selectPage(this);">3</button>
+
+                        <button class="page-number dots">...</button>
+
+                        <button class="page-number" onclick="return selectPage(this);">5</button>
+
+                        <button class="page-arrow">
+                            <i data-lucide="chevron-right"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
