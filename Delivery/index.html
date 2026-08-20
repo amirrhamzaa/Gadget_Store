@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gadget Store - Rider Dashboard</title>
+
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="sidebar">
+
+    <h2 class="logo">📦 Gadget Store</h2>
+
+    <ul class="menu">
+      <li class="menu-item active">Dashboard</li>
+      <li class="menu-item">Assigned Orders</li>
+      <li class="menu-item">My Deliveries</li>
+      <li class="menu-item">Delivery History</li>
+      <li class="menu-item">Earnings</li>
+      <li class="menu-item">Profile</li>
+      <li class="menu-item">Logout</li>
+    </ul>
+
+
+    <div class="rider-box">
+      <img src="images/avatar-rider.svg" alt="Rider">
+      <div>
+        <p><b>Rider One</b> <span class="online-dot"></span></p>
+        <small>ID: RIDER-1007</small>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="main">
+
+
+    <div class="topbar">
+      <input type="text" id="searchBox" placeholder="Search orders...">
+
+      <div class="topbar-right">
+        <button id="bellBtn" class="bell-btn">🔔</button>
+        <img src="images/avatar-rider.svg" class="user-avatar" alt="user">
+        <span>Rider One</span>
+      </div>
+    </div>
+
+ 
+    <h1>Good morning, Rider One 👋</h1>
+    <p class="subtext">Here's your delivery overview for today.</p>
+
+
+    <div class="stats">
+      <div class="card">
+        <p class="big-number" id="totalDeliveries">8</p>
+        <p>Today's Deliveries</p>
+      </div>
+      <div class="card">
+        <p class="big-number" id="pendingCount">3</p>
+        <p>Pending</p>
+      </div>
+      <div class="card">
+        <p class="big-number" id="completedCount">5</p>
+        <p>Completed</p>
+      </div>
+      <div class="card">
+        <p class="big-number">$45.00</p>
+        <p>Today's Earnings</p>
+      </div>
+    </div>
+
+
+    <div class="panel">
+      <h2>Assigned Orders</h2>
+
+      <table id="ordersTable">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Address</th>
+            <th>Product</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>#ORD-1001</td>
+            <td>
+              <img src="images/avatar-john.svg" class="small-avatar" alt="">
+              John Doe
+            </td>
+            <td>House 12, Road 5, Dhanmondi, Dhaka</td>
+            <td>
+              <img src="images/product-laptop.svg" class="small-avatar" alt="">
+              Dell Inspiron 15
+            </td>
+            <td><span class="status status-picked">Picked Up</span></td>
+            <td><button class="update-btn">Update Status</button></td>
+          </tr>
+
+          <tr>
+            <td>#ORD-1002</td>
+            <td>
+              <img src="images/avatar-sarah.svg" class="small-avatar" alt="">
+              Sarah Khan
+            </td>
+            <td>House 49, Road 12, Banani, Dhaka</td>
+            <td>
+              <img src="images/product-headphones.svg" class="small-avatar" alt="">
+              Sony WH-CH520
+            </td>
+            <td><span class="status status-transit">In Transit</span></td>
+            <td><button class="update-btn">Update Status</button></td>
+          </tr>
+
+          <tr>
+            <td>#ORD-1003</td>
+            <td>
+              <img src="images/avatar-ahmed.svg" class="small-avatar" alt="">
+              Ahmed Ali
+            </td>
+            <td>Plot 21, Avenue 3, Uttara, Dhaka</td>
+            <td>
+              <img src="images/product-earbuds.svg" class="small-avatar" alt="">
+              Realme Buds T300
+            </td>
+            <td><span class="status status-pending">Pending</span></td>
+            <td><button class="update-btn">Update Status</button></td>
+          </tr>
+
+          <tr>
+            <td>#ORD-1004</td>
+            <td>
+              <img src="images/avatar-mim.svg" class="small-avatar" alt="">
+              Mim Akter
+            </td>
+            <td>House 8, Road 2, Mirpur, Dhaka</td>
+            <td>
+              <img src="images/product-watch.svg" class="small-avatar" alt="">
+              boAt Wave Flex
+            </td>
+            <td><span class="status status-pending">Pending</span></td>
+            <td><button class="update-btn">Update Status</button></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
