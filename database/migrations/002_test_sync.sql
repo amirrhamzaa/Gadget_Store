@@ -1,0 +1,4 @@
+CREATE TABLE test_sync (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message VARCHAR(100) NOT NULL
+);
