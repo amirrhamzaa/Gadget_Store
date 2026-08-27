@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory - Gadget Store</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">Gadget Store</div>
+
+    <a href="dashboard.html">Dashboard</a>
+    <a href="products.html">Products</a>
+    <a href="orders.html">Orders</a>
+    <a href="inventory.html" class="active">Inventory</a>
+    <a href="#">Sales Reports</a>
+    <a href="#">Store Settings</a>
+    
+    <div class="logout"><a href="#">Logout </a></div>
+
+</div>
+
+<div class="main">
+    <div class="topbar">
+        <h1>Inventory</h1>
+        <h3>John Smith</h3>
+    </div>
+    
+    <div class="content"><p class="welcome">Manage your product stock.</p>
+        
+        <div class="table-box">
+            <h2>Stock List</h2>
+            
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Current Stock</th>
+                    <th>Status</th>
+                    <th>Update Stock</th>
+                </tr>
+                
+                <tr>
+                    <td>iPhone 16 Pro</td>
+                    <td>Smartphones</td>
+                    <td class="stock-value">18</td>
+                    <td><span class="delivered">In Stock</span></td>
+                    <td><input type="number" value="18" min="0" class="stock-input">
+
+                        <button class="update-button"onclick="updateStock(this)">Update</button>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td>Samsung Galaxy S25</td>
+                    <td>Smartphones</td>
+                    <td class="stock-value">9</td>
+                    <td><span class="delivered">In Stock</span></td>
+                    <td><input type="number" value="9"min="0"class="stock-input">
+                        
+                        <button class="update-button"onclick="updateStock(this)">Update</button></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>MacBook Air M3</td>
+                        <td>Laptops</td>
+                        <td class="stock-value">4</td>
+                        <td><span class="pending">Low Stock</span></td>
+                        <td><input type="number" value="4" min="0" class="stock-input">
+
+                        <button class="update-button"onclick="updateStock(this)">Update</button></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Logitech Gaming Mouse</td>
+                        <td>Accessories</td>
+                        <td class="stock-value">42</td>
+                        <td><span class="delivered">In Stock</span></td>
+                        <td><input type="number" value="42" min="0" class="stock-input">
+                            
+                            <button class="update-button"onclick="updateStock(this)">Update</button></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Sony Headphones</td>
+                            <td>Audio</td>
+                            <td class="stock-value">0</td>
+                            <td><span class="out-stock">Out of Stock</span></td>
+                            <td><input type="number" value="0" min="0" class="stock-input">
+                                
+                                <button class="update-button" onclick="updateStock(this)">Update</button></td>
+                            </tr>
+                        
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <script src="script.js"></script>
+        
+        </body>
+        </html>
