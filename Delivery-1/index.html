@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gadget Store - Rider Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+<aside class="sidebar">
+    <div class="logo">
+      <span class="logo-icon">🛍️</span>
+      <span class="logo-text">Gadget Store</span>
+    </div>
+
+    <nav class="nav-menu">
+      <button class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">🏠</span> Dashboard
+      </button>
+      <button class="nav-item" data-page="orders">
+        <span class="nav-icon">📦</span> Assigned Orders
+      </button>
+      <button class="nav-item" data-page="history">
+        <span class="nav-icon">🕓</span> Delivery History
+      </button>
+      <button class="nav-item" data-page="profile">
+        <span class="nav-icon">👤</span> Profile
+      </button>
+    </nav>
+
+
+    <button class="logout-btn" id="logoutBtn">
+      <span class="nav-icon">🚪</span> Logout
+    </button>
+  </aside>
+<main class="main">
+<header class="topbar">
+      <div>
+        <h1>Good morning, Rider One! 👋</h1>
+        <p class="subtitle">Here's your delivery overview for today.</p>
+      </div>
+
+      <div class="topbar-right">
+        <input type="text" id="searchInput" class="search-box" placeholder="Search orders...">
+        <button class="icon-btn" id="notifBtn">🔔</button>
+        <div class="profile-mini" id="profileMenuBtn">
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rider" alt="rider">
+          <span>Rider One ▾</span>
+        </div>
+      </div>
+    </header>
+<section class="page active" id="page-dashboard">
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon purple">📋</div>
+          <div>
+            <p class="stat-label">Today's Deliveries</p>
+            <h2 id="statTotal">8</h2>
+            <p class="stat-sub">Total orders assigned</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange">⏳</div>
+          <div>
+            <p class="stat-label">Pending</p>
+            <h2 id="statPending">3</h2>
+            <p class="stat-sub">Orders pending</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">✅</div>
+          <div>
+            <p class="stat-label">Completed</p>
+            <h2 id="statCompleted">5</h2>
+            <p class="stat-sub">Orders completed</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue">💰</div>
+          <div>
+            <p class="stat-label">Today's Earnings</p>
+            <h2 id="statEarnings">$45.00</h2>
+            <p class="stat-sub">Total earnings</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Assigned Orders</h3>
+          <button class="link-btn" data-goto="orders">View All</button>
+        </div>
+
+        <div class="table-wrap">
+          <table id="ordersTable">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Address</th>
+                <th>Product</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+</tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="panel">
+          <h3>Delivery Status Guide</h3>
+          <div class="status-guide">
+            <div class="status-step">
+              <div class="status-dot orange">📦</div>
+              <p><b>Pending</b><br>Order assigned to you</p>
+            </div>
+            <div class="status-step">
+              <div class="status-dot purple">🧾</div>
+              <p><b>Picked Up</b><br>Order picked up from store</p>
+            </div>
+            <div class="status-step">
+              <div class="status-dot blue">🚚</div>
+              <p><b>In Transit</b><br>Order is on the way to customer</p>
+            </div>
+            <div class="status-step">
+              <div class="status-dot green">✅</div>
+              <p><b>Delivered</b><br>Order delivered successfully</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Quick Actions</h3>
+          <div class="quick-actions">
+            <button class="quick-btn" data-goto="orders">📋<br>View Assigned Orders</button>
+            <button class="quick-btn" id="quickUpdateStatus">✏️<br>Update Delivery Status</button>
+            <button class="quick-btn" data-goto="history">🕓<br>Delivery History</button>
+            <button class="quick-btn" id="quickHelp">🎧<br>Help &amp; Support</button>
+          </div>
+        </div>
+      </div>
+    </section>
+<section class="page" id="page-orders">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>All Assigned Orders</h3>
+        </div>
+        <div class="table-wrap">
+          <table id="ordersTableFull">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Address</th>
+                <th>Product</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+</tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+<section class="page" id="page-history">
+      <div class="panel">
+        <h3>Delivery History</h3>
+        <div class="table-wrap">
+          <table id="historyTable">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Delivered On</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+</tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+<section class="page" id="page-profile">
+      <div class="panel profile-panel">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rider" alt="rider" class="profile-avatar">
+        <h2>Rider One</h2>
+        <p class="profile-id">ID: RIDER-1007</p>
+        <p class="profile-status">🟢 Online</p>
+        <div class="profile-info">
+          <p><b>Phone:</b> +880 1XXX-XXXXXX</p>
+          <p><b>Vehicle:</b> Motorcycle</p>
+          <p><b>Zone:</b> Dhaka</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+<div class="modal-overlay" id="detailsModal">
+  <div class="modal">
+    <button class="modal-close" data-close="detailsModal">✕</button>
+    <h3>Order Details</h3>
+    <div id="detailsBody">
+</div>
+  </div>
+</div>
+<div class="modal-overlay" id="statusModal">
+  <div class="modal">
+    <button class="modal-close" data-close="statusModal">✕</button>
+    <h3>Update Delivery Status</h3>
+    <p id="statusOrderLabel" class="status-order-label"></p>
+    <div class="status-options">
+      <button class="status-choice" data-status="Pending">📦 Pending</button>
+      <button class="status-choice" data-status="Picked Up">🧾 Picked Up</button>
+      <button class="status-choice" data-status="In Transit">🚚 In Transit</button>
+      <button class="status-choice" data-status="Delivered">✅ Delivered</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
