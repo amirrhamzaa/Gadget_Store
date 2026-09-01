@@ -30,23 +30,55 @@ $db = new DatabaseConnection();
 $connection = $db->openConnection();
 
 $email = $connection->real_escape_string($email);
-$sql = "SELECT * FROM users WHERE email='$email' AND status='Active' LIMIT 1";
+
+$sql = "SELECT * FROM users 
+        WHERE email='$email' 
+        AND status='Active' 
+        LIMIT 1";
+
 $result = $connection->query($sql);
 
 if ($result && $result->num_rows == 1) {
+
     $user = $result->fetch_assoc();
 
-    if (password_verify($password, $user['password']) || $password === $user['password']) {
+    if (
+        password_verify($password, $user['password']) ||
+        $password === $user['password']
+    ) {
+
         $_SESSION["user_id"] = $user["id"];
         $_SESSION["username"] = $user["name"];
         $_SESSION["loggedInUsername"] = $user["name"];
         $_SESSION["role"] = $user["role"];
         $_SESSION["isLoggedIn"] = true;
-        setcookie("username", $user["name"], time() + 3600, "/");
-        header("Location: ../View/dashboard.php");
-        exit();
+
+        setcookie(
+            "username",
+            $user["name"],
+            time() + 3600,
+            "/"
+        );
+
+        /*
+         * Redirect according to user role
+         */
+
+        if (strtolower($user["role"]) === "admin") {
+            header("Location: ../View/dashboard.php");
+            exit();
+        }
+
+        if (strtolower($user["role"]) === "customer") {
+            header("Location: ../../Customer/View/index.php");
+            exit();
+        }
     }
 }
+
+/*
+ * Login failed
+ */
 
 $_SESSION["loginError"] = "Invalid email or password";
 header("Location: ../View/login.php");
