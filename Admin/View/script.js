@@ -295,19 +295,8 @@ function productForm() {
 
                 <select id="productCategory" required>
 
-                    <option value="">
-                        Select category
-                    </option>
-
-                    <option>Laptops</option>
-
-                    <option>Smartphones</option>
-
-                    <option>Accessories</option>
-
-                    <option>Monitors</option>
-
-                    <option>Cameras</option>
+                    <option value="" disabled selected>Select category</option>
+                    ${window.GADGET_CATEGORIES.map(c => `<option>${escapeHtml(c)}</option>`).join("")}
 
                 </select>
 
@@ -645,669 +634,189 @@ dynamicForm.addEventListener("submit", function (event) {
    SAVE PRODUCT
 ===================================================== */
 
-function saveProduct() {
-
-    const name =
-        document.getElementById("productName").value;
-
-    const price =
-        document.getElementById("productPrice").value;
-
-    const category =
-        document.getElementById("productCategory").value;
-
-    const stock =
-        document.getElementById("productStock").value;
-
-    const description =
-        document.getElementById("productDescription").value;
-
-    const status =
-        document.getElementById("productStatus").value;
-
-
-    if (editRow) {
-
-        editRow.cells[0].querySelector("strong")
-            .textContent = name;
-
-        editRow.cells[0].querySelector("small")
-            .textContent = description;
-
-        editRow.cells[1].textContent =
-            "$" + price;
-
-        editRow.cells[2].textContent =
-            stock;
-
-        editRow.cells[3].textContent =
-            category;
-
-        editRow.cells[4].innerHTML =
-            `<span class="status ${
-                status === "Active"
-                ? "delivered"
-                : "inactive"
-            }">${status}</span>`;
-
-    }
-
-    else {
-
-        const row =
-            document.createElement("tr");
-
-
-        row.innerHTML = `
-
-            <td>
-
-                <div class="product-info">
-
-                    <div class="product-image">
-
-                        <i data-lucide="package"></i>
-
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            ${name}
-                        </strong>
-
-                        <small>
-                            ${description}
-                        </small>
-
-                    </div>
-
-                </div>
-
-            </td>
-
-
-            <td>
-                $${price}
-            </td>
-
-
-            <td>
-                ${stock}
-            </td>
-
-
-            <td>
-                ${category}
-            </td>
-
-
-            <td>
-
-                <span class="status ${
-                    status === "Active"
-                    ? "delivered"
-                    : "inactive"
-                }">
-
-                    ${status}
-
-                </span>
-
-            </td>
-
-
-            <td>
-
-                <button class="icon-btn edit-btn">
-
-                    <i data-lucide="pencil"></i>
-
-                </button>
-
-
-                <button class="icon-btn delete delete-btn">
-
-                    <i data-lucide="trash-2"></i>
-
-                </button>
-
-            </td>
-
-        `;
-
-
-        document
-            .getElementById("productsTable")
-            .appendChild(row);
-
-
-        updateProductCount();
-
-    }
-
-
-    closeModal();
-
-    refreshIcons();
-
+async function saveProduct() {
+    const form = new FormData();
+    if (editRow) form.append("id", editRow.dataset.id);
+    form.append("product_name", document.getElementById("productName").value.trim());
+    form.append("price", document.getElementById("productPrice").value);
+    form.append("category", document.getElementById("productCategory").value);
+    form.append("stock", document.getElementById("productStock").value);
+    form.append("description", document.getElementById("productDescription").value.trim());
+    form.append("status", document.getElementById("productStatus").value);
+    const image = document.getElementById("productImage");
+    if (image && image.files[0]) form.append("image", image.files[0]);
+    form.append("action", editRow ? "update_product" : "add_product");
+    await sendAdminRequest(form);
 }
-
 
 /* =====================================================
    SAVE USER
 ===================================================== */
 
-function saveUser() {
-
-    const name =
-        document.getElementById("userName").value;
-
-    const email =
-        document.getElementById("userEmail").value;
-
-    const phone =
-        document.getElementById("userPhone").value;
-
-    const role =
-        document.getElementById("userRole").value;
-
-    const status =
-        document.getElementById("userStatus").value;
-
-
-    const firstLetter =
-        name.charAt(0).toUpperCase();
-
-
-    let roleClass = "customer";
-
-
-    if (role === "Seller") {
-
-        roleClass = "seller";
-
-    }
-
-    else if (role === "Delivery Agent") {
-
-        roleClass = "delivery";
-
-    }
-
-
-    if (editRow) {
-
-        editRow.cells[0]
-            .querySelector("strong")
-            .textContent = name;
-
-        editRow.cells[1].innerHTML =
-            `<span class="role ${roleClass}">
-                ${role}
-            </span>`;
-
-        editRow.cells[2].textContent =
-            email;
-
-        editRow.cells[3].textContent =
-            phone;
-
-        editRow.cells[4].innerHTML =
-            `<span class="status ${
-                status === "Active"
-                ? "delivered"
-                : "inactive"
-            }">
-                ${status}
-            </span>`;
-
-    }
-
-    else {
-
-        const row =
-            document.createElement("tr");
-
-
-        row.innerHTML = `
-
-            <td>
-
-                <div class="user-info">
-
-                    <div class="avatar ${
-                        roleClass === "seller"
-                        ? "purple-bg"
-                        : roleClass === "delivery"
-                        ? "orange-bg"
-                        : "green-bg"
-                    }">
-
-                        ${firstLetter}
-
-                    </div>
-
-
-                    <div>
-
-                        <strong>
-                            ${name}
-                        </strong>
-
-                        <small>
-                            NEW USER
-                        </small>
-
-                    </div>
-
-                </div>
-
-            </td>
-
-
-            <td>
-
-                <span class="role ${roleClass}">
-
-                    ${role}
-
-                </span>
-
-            </td>
-
-
-            <td>
-                ${email}
-            </td>
-
-
-            <td>
-                ${phone}
-            </td>
-
-
-            <td>
-
-                <span class="status ${
-                    status === "Active"
-                    ? "delivered"
-                    : "inactive"
-                }">
-
-                    ${status}
-
-                </span>
-
-            </td>
-
-
-            <td>
-
-                <button class="icon-btn edit-btn">
-
-                    <i data-lucide="pencil"></i>
-
-                </button>
-
-
-                <button class="icon-btn delete delete-btn">
-
-                    <i data-lucide="trash-2"></i>
-
-                </button>
-
-            </td>
-
-        `;
-
-
-        document
-            .getElementById("usersTable")
-            .appendChild(row);
-
-
-        updateUserCount();
-
-    }
-
-
-    closeModal();
-
-    refreshIcons();
-
+async function saveUser() {
+    const form = new FormData();
+    if (editRow) form.append("id", editRow.dataset.id);
+    form.append("name", document.getElementById("userName").value.trim());
+    form.append("email", document.getElementById("userEmail").value.trim());
+    form.append("phone", document.getElementById("userPhone").value.trim());
+    form.append("role", document.getElementById("userRole").value);
+    form.append("password", document.getElementById("userPassword").value);
+    form.append("status", document.getElementById("userStatus").value);
+    form.append("address", document.getElementById("userAddress").value.trim());
+    form.append("action", editRow ? "update_user" : "add_user");
+    await sendAdminRequest(form);
 }
-
 
 /* =====================================================
    SAVE CATEGORY
 ===================================================== */
 
-function saveCategory() {
-
-    const name =
-        document.getElementById("categoryName").value;
-
-    const description =
-        document.getElementById("categoryDescription").value;
-
-    const status =
-        document.getElementById("categoryStatus").value;
-
-
-    if (editRow) {
-
-        editRow.cells[0]
-            .querySelector("strong")
-            .textContent = name;
-
-        editRow.cells[1]
-            .textContent = description;
-
-        editRow.cells[3].innerHTML =
-            `<span class="status ${
-                status === "Active"
-                ? "delivered"
-                : "inactive"
-            }">
-                ${status}
-            </span>`;
-
-    }
-
-    else {
-
-        const row =
-            document.createElement("tr");
-
-
-        row.innerHTML = `
-
-            <td>
-
-                <strong>
-                    ${name}
-                </strong>
-
-            </td>
-
-
-            <td>
-                ${description}
-            </td>
-
-
-            <td>
-                0
-            </td>
-
-
-            <td>
-
-                <span class="status ${
-                    status === "Active"
-                    ? "delivered"
-                    : "inactive"
-                }">
-
-                    ${status}
-
-                </span>
-
-            </td>
-
-
-            <td>
-
-                <button class="icon-btn edit-btn">
-
-                    <i data-lucide="pencil"></i>
-
-                </button>
-
-
-                <button class="icon-btn delete delete-btn">
-
-                    <i data-lucide="trash-2"></i>
-
-                </button>
-
-            </td>
-
-        `;
-
-
-        document
-            .getElementById("categoriesTable")
-            .appendChild(row);
-
-    }
-
-
-    closeModal();
-
-    refreshIcons();
-
+async function saveCategory() {
+    const form = new FormData();
+    if (editRow) form.append("id", editRow.dataset.id);
+    form.append("name", document.getElementById("categoryName").value.trim());
+    form.append("description", document.getElementById("categoryDescription").value.trim());
+    form.append("status", document.getElementById("categoryStatus").value);
+    form.append("action", editRow ? "update_category" : "add_category");
+    await sendAdminRequest(form);
 }
-
 
 /* =====================================================
    DELETE
 ===================================================== */
 
-document.addEventListener("click", function (event) {
-
-    const deleteButton =
-        event.target.closest(".delete-btn");
-
-
-    if (!deleteButton) {
-        return;
-    }
-
-
-    const row =
-        deleteButton.closest("tr");
-
-
-    if (!row) {
-        return;
-    }
-
-
-    const confirmed =
-        confirm(
-            "Are you sure you want to delete this item?"
-        );
-
-
-    if (confirmed) {
-
-        row.remove();
-
-        updateProductCount();
-
-        updateUserCount();
-
-    }
-
+document.addEventListener("click", async function (event) {
+    const deleteButton = event.target.closest(".delete-btn");
+    if (!deleteButton) return;
+    const row = deleteButton.closest("tr");
+    if (!row || !row.dataset.id) return;
+    if (!confirm("Are you sure you want to delete this item?")) return;
+    const tableId = row.parentElement.id;
+    const type = tableId === "productsTable" ? "product" : tableId === "usersTable" ? "user" : "category";
+    const form = new FormData();
+    form.append("action", "delete_" + type);
+    form.append("id", row.dataset.id);
+    await sendAdminRequest(form);
 });
-
 
 /* =====================================================
    EDIT
 ===================================================== */
 
 document.addEventListener("click", function (event) {
+    const editButton = event.target.closest(".edit-btn");
+    if (!editButton) return;
+    const row = editButton.closest("tr");
+    if (!row) return;
 
-    const editButton =
-        event.target.closest(".edit-btn");
-
-
-    if (!editButton) {
-        return;
-    }
-
-
-    const row =
-        editButton.closest("tr");
-
-
-    if (!row) {
-        return;
-    }
-
-
-    /* PRODUCTS */
-
-    if (
-        row.parentElement.id === "productsTable"
-    ) {
-
+    if (row.parentElement.id === "productsTable") {
         openModal("product", row);
-
         setTimeout(() => {
-
-            document.getElementById("productName").value =
-                row.cells[0]
-                    .querySelector("strong")
-                    .textContent;
-
-            document.getElementById("productPrice").value =
-                row.cells[1]
-                    .textContent
-                    .replace("$", "");
-
-            document.getElementById("productStock").value =
-                row.cells[2].textContent;
-
-            document.getElementById("productCategory").value =
-                row.cells[3].textContent;
-
-            document.getElementById("productDescription").value =
-                row.cells[0]
-                    .querySelector("small")
-                    .textContent;
-
-        }, 50);
-
-    }
-
-
-    /* USERS */
-
-    else if (
-        row.parentElement.id === "usersTable"
-    ) {
-
+            document.getElementById("productName").value = row.cells[0].querySelector("strong").textContent.trim();
+            document.getElementById("productPrice").value = row.cells[1].textContent.replace(/[^0-9.]/g, "");
+            document.getElementById("productStock").value = row.cells[2].textContent.trim();
+            document.getElementById("productCategory").value = row.cells[3].textContent.trim();
+            document.getElementById("productDescription").value = row.cells[0].querySelector("small").textContent.trim();
+            document.getElementById("productStatus").value = row.cells[4].textContent.trim();
+        }, 20);
+    } else if (row.parentElement.id === "usersTable") {
         openModal("user", row);
-
         setTimeout(() => {
-
-            document.getElementById("userName").value =
-                row.cells[0]
-                    .querySelector("strong")
-                    .textContent;
-
-            document.getElementById("userEmail").value =
-                row.cells[2].textContent;
-
-            document.getElementById("userPhone").value =
-                row.cells[3].textContent;
-
-            document.getElementById("userRole").value =
-                row.cells[1]
-                    .textContent
-                    .trim();
-
-            document.getElementById("userStatus").value =
-                row.cells[4]
-                    .textContent
-                    .trim();
-
-        }, 50);
-
-    }
-
-
-    /* CATEGORIES */
-
-    else if (
-        row.parentElement.id === "categoriesTable"
-    ) {
-
+            document.getElementById("userName").value = row.cells[0].querySelector("strong").textContent.trim();
+            document.getElementById("userEmail").value = row.cells[2].textContent.trim();
+            document.getElementById("userPhone").value = row.cells[3].textContent.trim();
+            document.getElementById("userRole").value = row.cells[1].textContent.trim();
+            document.getElementById("userStatus").value = row.cells[4].textContent.trim();
+            document.getElementById("userPassword").required = false;
+            document.getElementById("userPassword").placeholder = "Leave blank to keep current password";
+        }, 20);
+    } else if (row.parentElement.id === "categoriesTable") {
         openModal("category", row);
-
         setTimeout(() => {
-
-            document.getElementById("categoryName").value =
-                row.cells[0]
-                    .querySelector("strong")
-                    .textContent;
-
-            document.getElementById("categoryDescription").value =
-                row.cells[1].textContent.trim();
-
-            document.getElementById("categoryStatus").value =
-                row.cells[3]
-                    .textContent
-                    .trim();
-
-        }, 50);
-
+            document.getElementById("categoryName").value = row.cells[0].querySelector("strong").textContent.trim();
+            document.getElementById("categoryDescription").value = row.cells[1].textContent.trim();
+            document.getElementById("categoryStatus").value = row.cells[3].textContent.trim();
+        }, 20);
     }
-
 });
-
 
 /* =====================================================
    DASHBOARD COUNTS
 ===================================================== */
-
-function updateProductCount() {
-
-    const count =
-        document
-            .getElementById("productsTable")
-            .rows.length;
-
-
-    document
-        .getElementById("dashboardProductCount")
-        .textContent = 256 + count - 2;
-
-}
-
-
-function updateUserCount() {
-
-    const count =
-        document
-            .getElementById("usersTable")
-            .rows.length;
-
-
-    document
-        .getElementById("dashboardUserCount")
-        .textContent = 160 + count;
-
-}
-
+function updateProductCount() {}
+function updateUserCount() {}
 
 /* =====================================================
    VIEW ORDER
 ===================================================== */
 
+const orderViewOverlay = document.getElementById("orderViewOverlay");
+const orderViewFields = document.getElementById("orderViewFields");
+const orderViewStatus = document.getElementById("orderViewStatus");
+let currentOrderId = null;
+
+function openOrderView(order) {
+    currentOrderId = order.id;
+
+    const rows = [
+        ["Order ID", "#ORD-" + order.id],
+        ["Customer", order.customer_name || "Guest"],
+        ["Product", order.product_name || ""],
+        ["Quantity", order.quantity || 0],
+        ["Total", "৳" + Number(order.total_price || 0).toFixed(2)],
+        ["Order Date", order.order_date || ""]
+    ];
+
+    orderViewFields.innerHTML = rows.map(function (r) {
+        return '<div class="form-group full"><label>' + r[0] + '</label>' +
+            '<input class="input" type="text" value="' +
+            String(r[1]).replace(/"/g, "&quot;") +
+            '" readonly></div>';
+    }).join("");
+
+    orderViewStatus.value = order.status || "Pending";
+
+    orderViewOverlay.classList.add("show");
+}
+
+function closeOrderView() {
+    orderViewOverlay.classList.remove("show");
+    currentOrderId = null;
+}
+
+document
+    .getElementById("closeOrderView")
+    .addEventListener("click", closeOrderView);
+
+document
+    .getElementById("closeOrderViewBtn")
+    .addEventListener("click", closeOrderView);
+
+document
+    .getElementById("updateOrderStatusBtn")
+    .addEventListener("click", async function () {
+        if (!currentOrderId) return;
+        const form = new FormData();
+        form.append("action", "update_order_status");
+        form.append("id", currentOrderId);
+        form.append("status", orderViewStatus.value);
+        await sendAdminRequest(form);
+    });
+
+orderViewOverlay.addEventListener("click", function (event) {
+    if (event.target === orderViewOverlay) {
+        closeOrderView();
+    }
+});
+
 document.addEventListener("click", function (event) {
 
-    if (
-        event.target.classList.contains("view-btn")
-    ) {
-
-        alert(
-            "Order details will open here."
-        );
-
+    if (event.target.closest(".view-btn")) {
+        const btn = event.target.closest(".view-btn");
+        try {
+            const order = JSON.parse(btn.dataset.order);
+            openOrderView(order);
+        } catch (e) { alert("Unable to load order details."); }
     }
 
 });
@@ -1329,14 +838,55 @@ document
 
         if (confirmLogout) {
 
-            alert(
-                "Logout functionality will be connected with backend."
-            );
+            window.location.href = "../Controller/logout.php";
 
         }
 
     });
 
+
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[ch]));
+}
+
+async function sendAdminRequest(form) {
+    try {
+        const response = await fetch("../Controller/adminController.php", { method: "POST", body: form });
+        const data = await response.json();
+        if (!data.success) { alert(data.message || "Operation failed."); return false; }
+        window.location.reload();
+        return true;
+    } catch (error) {
+        alert("Server error. Please check XAMPP/Apache and the database connection.");
+        return false;
+    }
+}
+
+// Search and filter without changing the original visual design.
+function filterRows(inputId, tableId) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    input.addEventListener("input", function () {
+        const q = this.value.toLowerCase();
+        document.querySelectorAll(`#${tableId} tr`).forEach(row => { row.style.display = row.textContent.toLowerCase().includes(q) ? "" : "none"; });
+    });
+}
+filterRows("userSearch", "usersTable");
+filterRows("productSearch", "productsTable");
+
+const productCategoryFilter = document.getElementById("productCategoryFilter");
+if (productCategoryFilter) productCategoryFilter.addEventListener("change", function () {
+    const value = this.value.toLowerCase();
+    document.querySelectorAll("#productsTable tr").forEach(row => { row.style.display = value === "all" || row.cells[3].textContent.trim().toLowerCase() === value ? "" : "none"; });
+});
+const userRoleFilter = document.getElementById("userRoleFilter");
+if (userRoleFilter) userRoleFilter.addEventListener("change", function () {
+    const value = this.value.toLowerCase();
+    document.querySelectorAll("#usersTable tr").forEach(row => {
+        const role = row.cells[1].textContent.trim().toLowerCase();
+        row.style.display = value === "all" || role === value ? "" : "none";
+    });
+});
 
 /* =====================================================
    INITIALIZE
