@@ -49,3 +49,103 @@ function updateStock(button){
     stockValue.innerHTML = input.value;
     alert("Stock updated successfully");
 }
+
+function validateSettings()
+{
+    let name = document.getElementById("sellerName").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let address = document.getElementById("address").value;
+
+    let hasNameError = false;
+    let hasEmailError = false;
+    let hasPhoneError = false;
+    let hasAddressError = false;
+
+
+    if(name == "")
+    {
+        document.getElementById("sellerNameError").innerHTML =
+        "Seller name is required";
+
+        hasNameError = true;
+    }
+    else
+    {
+        document.getElementById("sellerNameError").innerHTML = "";
+
+        hasNameError = false;
+    }
+
+
+    if(email == "")
+    {
+        document.getElementById("emailError").innerHTML =
+        "Email is required";
+
+        hasEmailError = true;
+    }
+    else if(!email.includes("@"))
+    {
+        document.getElementById("emailError").innerHTML =
+        "Enter a valid email";
+
+        hasEmailError = true;
+    }
+    else
+    {
+        document.getElementById("emailError").innerHTML = "";
+
+        hasEmailError = false;
+    }
+
+
+    if(phone == "")
+    {
+        document.getElementById("phoneError").innerHTML =
+        "Phone number is required";
+
+        hasPhoneError = true;
+    }
+    else if(phone.length < 11)
+    {
+        document.getElementById("phoneError").innerHTML =
+        "Enter a valid phone number";
+
+        hasPhoneError = true;
+    }
+    else
+    {
+        document.getElementById("phoneError").innerHTML = "";
+
+        hasPhoneError = false;
+    }
+
+
+    if(address == "")
+    {
+        document.getElementById("addressError").innerHTML =
+        "Address is required";
+
+        hasAddressError = true;
+    }
+    else
+    {
+        document.getElementById("addressError").innerHTML = "";
+
+        hasAddressError = false;
+    }
+
+
+    if(
+        !hasNameError &&
+        !hasEmailError &&
+        !hasPhoneError &&
+        !hasAddressError
+    )
+    {
+        return true;
+    }
+
+    return false;
+}

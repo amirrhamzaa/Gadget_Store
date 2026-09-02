@@ -30,10 +30,14 @@
         Inventory
     </a>
 
+    <a href="accountSettings.php">
+    Account Settings
+</a>
+
     <div class="logout">
-        <a href="#">
-            Logout
-        </a>
+    <div class="logout">
+    <a href="#">Logout</a>
+</div>
     </div>
 
 </div>

@@ -44,9 +44,14 @@ $orders = $orderModel->getAllOrders();
         Inventory
     </a>
 
+    <a href="accountSettings.php">
+    Account Settings
+</a>
+
     <div class="logout">
-        <a href="#">Logout</a>
-    </div>
+    <div class="logout">
+    <a href="#">Logout</a>
+</div>    </div>
 
 </div>
 
@@ -57,7 +62,7 @@ $orders = $orderModel->getAllOrders();
 
         <h1>Orders</h1>
 
-        <h3>John Smith</h3>
+        
 
     </div>
 
