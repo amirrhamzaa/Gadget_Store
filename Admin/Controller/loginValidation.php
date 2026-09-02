@@ -73,6 +73,10 @@ if ($result && $result->num_rows == 1) {
             header("Location: ../../Customer/View/index.php");
             exit();
         }
+         if (strtolower($user["role"]) === "seller") {
+            header("Location: ../../Seller/View/dashboard.php");
+            exit();
+        }
     }
 }
 

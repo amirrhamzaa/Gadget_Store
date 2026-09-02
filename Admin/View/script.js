@@ -35,7 +35,9 @@ const pageNames = {
 
     categories: "Categories",
 
-    orders: "Orders"
+    orders: "Orders",
+
+    "profile-settings": "Profile Settings"
 
 };
 
@@ -75,6 +77,13 @@ function showPage(pageName) {
         pageNames[pageName] || "Dashboard";
 
 
+    if (history.replaceState) {
+        history.replaceState(null, null, "#" + pageName);
+    } else {
+        window.location.hash = pageName;
+    }
+
+
     document.querySelector(".sidebar")
         .classList.remove("open");
 
@@ -94,6 +103,19 @@ navItems.forEach(item => {
     });
 
 });
+
+
+/* Restore whichever tab was active before a reload (e.g. after
+   saving a product/order), instead of always resetting to Dashboard. */
+(function restoreActivePage() {
+
+    const hash = window.location.hash.replace("#", "");
+
+    if (hash && document.getElementById(hash) && pageNames.hasOwnProperty(hash)) {
+        showPage(hash);
+    }
+
+})();
 
 
 /* =====================================================
@@ -895,3 +917,99 @@ if (userRoleFilter) userRoleFilter.addEventListener("change", function () {
 showPage("dashboard");
 
 refreshIcons();
+
+/* =========================================
+   PROFILE SETTINGS
+========================================= */
+
+const saveProfile = document.getElementById("saveProfile");
+
+if (saveProfile) {
+
+    saveProfile.addEventListener("click", async function () {
+
+        const name =
+            document.getElementById("adminName").value.trim();
+
+        const email =
+            document.getElementById("adminEmail").value.trim();
+
+        const phone =
+            document.getElementById("adminPhone").value.trim();
+
+        const password =
+            document.getElementById("adminPassword").value;
+
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+        // Name check
+        if (name === "") {
+            alert("Please enter your name.");
+            return;
+        }
+
+        // Email check
+        if (email === "") {
+            alert("Please enter your email.");
+            return;
+        }
+
+        // Password check
+        if (password !== "" && password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        if (password !== "" && password.length < 6) {
+            alert("Password must be at least 6 characters.");
+            return;
+        }
+
+        const form = new FormData();
+        form.append("action", "update_profile");
+        form.append("name", name);
+        form.append("email", email);
+        form.append("phone", phone);
+        form.append("password", password);
+
+        // sendAdminRequest reloads the page on success, which also
+        // re-shows this same tab (see the URL-hash tab-persist logic).
+        await sendAdminRequest(form);
+
+    });
+
+}
+
+
+/* =========================================
+   CANCEL BUTTON
+========================================= */
+
+const profileCancel =
+    document.getElementById("profileCancel");
+
+if (profileCancel) {
+
+    profileCancel.addEventListener("click", function () {
+
+        const admin = window.GADGET_ADMIN || {};
+
+        document.getElementById("adminName").value =
+            admin.name || "";
+
+        document.getElementById("adminEmail").value =
+            admin.email || "";
+
+        document.getElementById("adminPhone").value =
+            admin.phone || "";
+
+        document.getElementById("adminPassword").value =
+            "";
+
+        document.getElementById("confirmPassword").value =
+            "";
+
+    });
+
+}

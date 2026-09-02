@@ -77,6 +77,31 @@ switch ($action) {
         $stmt=$connection->prepare("UPDATE orders SET status=? WHERE id=?"); $stmt->bind_param("si",$status,$id);
         if (!$stmt->execute()) respond(false,$stmt->error); respond(true);
 
+    case "update_profile":
+        $id = (int)($_SESSION["user_id"] ?? 0);
+        if ($id <= 0) respond(false, "No logged-in user found.");
+        $name = clean($connection, $_POST["name"] ?? "");
+        $email = clean($connection, $_POST["email"] ?? "");
+        $phone = clean($connection, $_POST["phone"] ?? "");
+        $password = $_POST["password"] ?? "";
+        if ($name === "") respond(false, "Name is required.");
+        if ($email === "") respond(false, "Email is required.");
+        if ($password !== "") {
+            if (strlen($password) < 6) respond(false, "Password must be at least 6 characters.");
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $connection->prepare("UPDATE users SET name=?,email=?,phone=?,password=? WHERE id=?");
+            $stmt->bind_param("ssssi", $name, $email, $phone, $hash, $id);
+        } else {
+            $stmt = $connection->prepare("UPDATE users SET name=?,email=?,phone=? WHERE id=?");
+            $stmt->bind_param("sssi", $name, $email, $phone, $id);
+        }
+        if (!$stmt->execute()) {
+            $msg = ($connection->errno === 1062) ? "This email is already in use by another account." : $stmt->error;
+            respond(false, $msg);
+        }
+        $_SESSION["username"] = $name;
+        respond(true);
+
     case "delete_product": $id=(int)($_POST["id"]??0); $stmt=$connection->prepare("DELETE FROM products WHERE id=?"); $stmt->bind_param("i",$id); break;
     case "delete_user": $id=(int)($_POST["id"]??0); $stmt=$connection->prepare("DELETE FROM users WHERE id=?"); $stmt->bind_param("i",$id); break;
     case "delete_category": $id=(int)($_POST["id"]??0); $stmt=$connection->prepare("DELETE FROM categories WHERE id=?"); $stmt->bind_param("i",$id); break;

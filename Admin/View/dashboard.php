@@ -20,6 +20,16 @@ $orders = $connection->query("SELECT * FROM orders ORDER BY id DESC");
 $categoryNames = [];
 $catResult = $connection->query("SELECT name FROM categories WHERE status='Active' ORDER BY name");
 while ($cat = $catResult->fetch_assoc()) { $categoryNames[] = $cat['name']; }
+
+$currentAdminId = (int)($_SESSION["user_id"] ?? 0);
+$currentAdmin = ["name" => "Admin User", "email" => "", "phone" => ""];
+if ($currentAdminId > 0) {
+    $stmt = $connection->prepare("SELECT name, email, phone FROM users WHERE id=?");
+    $stmt->bind_param("i", $currentAdminId);
+    $stmt->execute();
+    $row = $stmt->get_result()->fetch_assoc();
+    if ($row) $currentAdmin = $row;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +98,7 @@ while ($cat = $catResult->fetch_assoc()) { $categoryNames[] = $cat['name']; }
 
         <div class="sidebar-bottom">
 
-            <button class="nav-item">
+            <button class="nav-item" data-page="profile-settings">
                 <i data-lucide="settings"></i>
                 <span>Settings</span>
             </button>
@@ -658,6 +668,103 @@ while ($cat = $catResult->fetch_assoc()) { $categoryNames[] = $cat['name']; }
 
             </div>
 
+
+            <!-- ================= PROFILE SETTINGS ================= -->
+            <div class="page" id="profile-settings">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h2>Profile Settings</h2>
+                        <p>Update your account information</p>
+                    </div>
+
+                </div>
+
+                <div class="profile-settings-card">
+
+                    <div class="profile-form">
+
+                        <!-- Full Name -->
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input
+                                type="text"
+                                id="adminName"
+                                value="<?= htmlspecialchars($currentAdmin["name"] ?? "") ?>"
+                                placeholder="Enter your name"
+                            >
+                        </div>
+
+                        <!-- Email -->
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input
+                                type="email"
+                                id="adminEmail"
+                                value="<?= htmlspecialchars($currentAdmin["email"] ?? "") ?>"
+                                placeholder="Enter your email"
+                            >
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="input-group">
+                            <label>Phone Number</label>
+                            <input
+                                type="text"
+                                id="adminPhone"
+                                value="<?= htmlspecialchars($currentAdmin["phone"] ?? "") ?>"
+                                placeholder="Enter your phone number"
+                            >
+                        </div>
+
+                        <!-- Password -->
+                        <div class="input-group">
+                            <label>New Password</label>
+                            <input
+                                type="password"
+                                id="adminPassword"
+                                placeholder="Enter new password"
+                            >
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="input-group">
+                            <label>Confirm Password</label>
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Confirm new password"
+                            >
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="profile-buttons">
+
+                            <button
+                                type="button"
+                                class="cancel-btn"
+                                id="profileCancel"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="button"
+                                class="save-btn"
+                                id="saveProfile"
+                            >
+                                Save Changes
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </section>
 
     </main>
@@ -821,6 +928,7 @@ while ($cat = $catResult->fetch_assoc()) { $categoryNames[] = $cat['name']; }
 
 
 <script>window.GADGET_CATEGORIES = <?= json_encode($categoryNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;</script>
+<script>window.GADGET_ADMIN = <?= json_encode($currentAdmin, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;</script>
 <script src="script.js"></script>
 
 </body>
