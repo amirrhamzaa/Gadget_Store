@@ -18,6 +18,8 @@ $seller = $accountModel->getSeller();
 
     <link rel="stylesheet" href="style.css">
 
+    <script src="https://unpkg.com/lucide@latest"></script>
+
 </head>
 
 <body>
@@ -25,9 +27,15 @@ $seller = $accountModel->getSeller();
 
 <div class="sidebar">
 
-    <div class="logo">
-        Gadget Store
-    </div>
+<div class="logo">
+
+<div class="logo-icon">
+    <i data-lucide="shopping-bag"></i>
+</div>
+
+<span>Gadget Store</span>
+
+</div>
 
     <a href="dashboard.php">
         Dashboard
@@ -177,6 +185,9 @@ $seller = $accountModel->getSeller();
 
 <script src="script.js"></script>
 
+<script>
+    lucide.createIcons();
+</script>
 
 </body>
 

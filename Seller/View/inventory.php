@@ -14,15 +14,22 @@ $products = $productModel->getAllProducts();
 <head>
     <title>Inventory - Gadget Store</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
 
 <div class="sidebar">
 
-    <div class="logo">
-        Gadget Store
-    </div>
+<div class="logo">
+
+<div class="logo-icon">
+    <i data-lucide="shopping-bag"></i>
+</div>
+
+<span>Gadget Store</span>
+
+</div>
 
     <a href="dashboard.php">
         Dashboard
@@ -146,6 +153,10 @@ $products = $productModel->getAllProducts();
     </div>
 
 </div>
+
+<script>
+    lucide.createIcons();
+</script>
 
 </body>
 

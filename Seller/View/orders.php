@@ -17,6 +17,8 @@ $orders = $orderModel->getAllOrders();
 
     <link rel="stylesheet" href="style.css">
 
+    <script src="https://unpkg.com/lucide@latest"></script>
+
 </head>
 
 <body>
@@ -24,9 +26,15 @@ $orders = $orderModel->getAllOrders();
 
 <div class="sidebar">
 
-    <div class="logo">
-        Gadget Store
-    </div>
+<div class="logo">
+
+<div class="logo-icon">
+    <i data-lucide="shopping-bag"></i>
+</div>
+
+<span>Gadget Store</span>
+
+</div>
 
     <a href="dashboard.php">
         Dashboard
@@ -257,6 +265,9 @@ $orders = $orderModel->getAllOrders();
 
 </div>
 
+<script>
+    lucide.createIcons();
+</script>
 
 </body>
 

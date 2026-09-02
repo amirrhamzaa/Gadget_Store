@@ -17,14 +17,22 @@ $recentOrders = $dashboardModel->getRecentOrders();
 <head>
     <title>Seller Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
 
 <div class="sidebar">
 
-    <div class="logo">Gadget Store</div>
+<div class="logo logo-area">
 
+    <div class="logo-icon">
+        <i data-lucide="shopping-bag"></i>
+    </div>
+
+    <span>Gadget Store</span>
+
+</div>
     <a href="dashboard.php" class="active">Dashboard</a>
     <a href="products.php">Products</a>
     <a href="orders.php">Orders</a>
@@ -198,6 +206,10 @@ $recentOrders = $dashboardModel->getRecentOrders();
 
 
 <script src="script.js"></script>
+
+<script>
+    lucide.createIcons();
+</script>
 
 </body>
 
