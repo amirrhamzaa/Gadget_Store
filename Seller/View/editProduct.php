@@ -44,11 +44,14 @@ $product = $result->fetch_assoc();
         Inventory
     </a>
 
+    <a href="accountSettings.php">
+    Account Settings
+</a>
+
     <div class="logout">
-        <a href="#">
-            Logout
-        </a>
-    </div>
+    <div class="logout">
+    <a href="#">Logout</a>
+</div>    </div>
 
 </div>
 
@@ -57,7 +60,7 @@ $product = $result->fetch_assoc();
 
     <div class="topbar">
         <h1>Edit Product</h1>
-        <h3>John Smith</h3>
+       
     </div>
 
 

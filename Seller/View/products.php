@@ -41,11 +41,14 @@ $products = $productModel->getAllProducts();
         Inventory
     </a>
 
+    <a href="accountSettings.php">
+    Account Settings
+</a>
+
     <div class="logout">
-        <a href="#">
-            Logout
-        </a>
-    </div>
+    <div class="logout">
+    <a href="#">Logout</a>
+</div>    </div>
 
 </div>
 
@@ -56,7 +59,7 @@ $products = $productModel->getAllProducts();
 
         <h1>Products</h1>
 
-        <h3>John Smith</h3>
+        
 
     </div>
 

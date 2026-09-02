@@ -29,10 +29,12 @@ $recentOrders = $dashboardModel->getRecentOrders();
     <a href="products.php">Products</a>
     <a href="orders.php">Orders</a>
     <a href="inventory.php">Inventory</a>
+    <a href="accountSettings.php">Account Settings</a>
 
     <div class="logout">
-        <a href="#">Logout</a>
-    </div>
+    <div class="logout">
+    <a href="#">Logout</a>
+</div>    </div>
 
 </div>
 
@@ -43,7 +45,7 @@ $recentOrders = $dashboardModel->getRecentOrders();
 
         <h1>Seller Dashboard</h1>
 
-        <h3>John Smith</h3>
+    
 
     </div>
 
@@ -51,7 +53,7 @@ $recentOrders = $dashboardModel->getRecentOrders();
     <div class="content">
 
         <p class="welcome">
-            Welcome back, John. Here is your store performance.
+            Welcome back . Here is your store performance.
         </p>
 
 
