@@ -1,0 +1,31 @@
+<?php
+
+class DatabaseConnection
+{
+    function openConnection()
+    {
+        $db_host = "localhost";
+        $db_user = "root";
+        $db_password = "";
+        $db_name = "gadget_store";
+
+        $connection = new mysqli(
+            $db_host,
+            $db_user,
+            $db_password,
+            $db_name
+        );
+
+        if($connection->connect_error)
+        {
+            die(
+                "Failed to connect database. "
+                . $connection->connect_error
+            );
+        }
+
+        return $connection;
+    }
+}
+
+?>
