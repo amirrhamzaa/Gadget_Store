@@ -42,11 +42,10 @@ if ($cartItems) {
             $price
         );
 
-        $db->removeFromCart(
-            $connection,
-            "cart",
-            $row["id"]
-        );
+        $sql = "DELETE FROM cart
+                WHERE id = '" . $row["id"] . "'";
+
+        $connection->query($sql);
     }
 }
 

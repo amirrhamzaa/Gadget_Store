@@ -11,6 +11,7 @@ $cartItems = $db->getCartItems($connection, "cart");
 <head>
 <title>View Cart - Gadget Store</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body class="cart-page">
@@ -18,7 +19,9 @@ $cartItems = $db->getCartItems($connection, "cart");
 
 <div class="sidebar">
 <div class="logo-area">
-<div class="logo-icon">🛍️</div>
+<div class="logo-icon">
+<i data-lucide="shopping-bag"></i>
+</div>
 <label>Gadget Store</label>
 </div>
 
@@ -40,7 +43,9 @@ $cartItems = $db->getCartItems($connection, "cart");
 </a>
 </div>
 
-<a href="logout.php" class="nav-item logout">
+<a href="../controller/logout.php"
+   class="nav-item logout"
+   onclick="return confirm('Are you sure you want to logout?');">
 <label>Logout</label>
 </a>
 </div>
@@ -85,7 +90,11 @@ if ($cartItems) {
 
 <div class="cart-product-info">
 <h3><?php echo $productName; ?></h3>
+
 <p>Gadget Store Product</p>
+
+<p>Stock: <?php echo $row["stock"]; ?></p>
+
 <b>৳<?php echo $price; ?></b>
 </div>
 
@@ -164,5 +173,11 @@ Place Order
 </div>
 
 </div>
+
+<script>
+lucide.createIcons();
+</script>
+
 </body>
 </html>
+

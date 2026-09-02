@@ -1,12 +1,23 @@
 <?php
 
+require_once("../model/DatabaseConnection.php");
+
+$db = new DatabaseConnection();
+$connection = $db->openConnection();
+
 ?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
+
     <title>Gadget Store</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
 </head>
 
 <body class="dashboard-page">
@@ -16,9 +27,15 @@
         <div class="sidebar">
 
             <div class="logo-area">
-                <div class="logo-icon">🛍️</div>
+
+                <div class="logo-icon">
+                    <i data-lucide="shopping-bag"></i>
+                </div>
+
                 <label>Gadget Store</label>
+
             </div>
+
 
             <div class="sidebar-nav">
 
@@ -40,10 +57,13 @@
 
             </div>
 
+
             <a href="../controller/logout.php"
-                class="nav-item logout"
-                onclick="return confirm('Are you sure you want to logout?');">
+               class="nav-item logout"
+               onclick="return confirm('Are you sure you want to logout?');">
+
                 <label>Logout</label>
+
             </a>
 
         </div>
@@ -51,15 +71,18 @@
 
         <div class="main-area">
 
+
             <div class="topbar">
 
                 <div class="search-box">
 
                     <label class="search-icon">⌕</label>
 
-                    <input type="text"
+                    <input
+                        type="text"
                         placeholder="Search for products..."
-                        id="searchInput">
+                        id="searchInput"
+                    >
 
                 </div>
 
@@ -70,16 +93,21 @@
 
                 <div class="main-column">
 
+
                     <div class="section-header">
 
-                        <h2>Featured Products</h2>
+                        <h2 id="sectionTitle">
+                            Featured Products
+                        </h2>
 
-                        <button class="view-all">View All</button>
+                        <button class="view-all">
+                            View All
+                        </button>
 
                     </div>
 
 
-                    <div class="products-grid">
+                    <div class="products-grid" id="productResults">
 
 
                         <div class="product-card">
@@ -110,13 +138,21 @@
                                 <b>৳85,039</b>
 
 
-                                <form action="../controller/addToCart.php" method="post">
+                                <form
+                                    action="../controller/addToCart.php"
+                                    method="post"
+                                >
 
-                                    <input type="hidden"
+                                    <input
+                                        type="hidden"
                                         name="product_name"
-                                        value="Dell Inspiron 15">
+                                        value="Dell Inspiron 15"
+                                    >
 
-                                    <button type="submit" class="add-cart">
+                                    <button
+                                        type="submit"
+                                        class="add-cart"
+                                    >
                                         Add to Cart
                                     </button>
 
@@ -125,7 +161,6 @@
                             </div>
 
                         </div>
-
 
 
                         <div class="product-card">
@@ -158,13 +193,21 @@
                                 <b>৳7,287</b>
 
 
-                                <form action="../controller/addToCart.php" method="post">
+                                <form
+                                    action="../controller/addToCart.php"
+                                    method="post"
+                                >
 
-                                    <input type="hidden"
+                                    <input
+                                        type="hidden"
                                         name="product_name"
-                                        value="Sony WH-CH520">
+                                        value="Sony WH-CH520"
+                                    >
 
-                                    <button type="submit" class="add-cart">
+                                    <button
+                                        type="submit"
+                                        class="add-cart"
+                                    >
                                         Add to Cart
                                     </button>
 
@@ -175,14 +218,15 @@
                         </div>
 
 
-
                         <div class="product-card">
 
                             <div class="product-image">
 
                                 <div class="smartwatch">
 
-                                    <div class="watch-screen">12:45</div>
+                                    <div class="watch-screen">
+                                        12:45
+                                    </div>
 
                                     <div class="watch-strap top"></div>
 
@@ -206,13 +250,21 @@
                                 <b>৳3,643</b>
 
 
-                                <form action="../controller/addToCart.php" method="post">
+                                <form
+                                    action="../controller/addToCart.php"
+                                    method="post"
+                                >
 
-                                    <input type="hidden"
+                                    <input
+                                        type="hidden"
                                         name="product_name"
-                                        value="boAt Wave Flex">
+                                        value="boAt Wave Flex"
+                                    >
 
-                                    <button type="submit" class="add-cart">
+                                    <button
+                                        type="submit"
+                                        class="add-cart"
+                                    >
                                         Add to Cart
                                     </button>
 
@@ -221,7 +273,6 @@
                             </div>
 
                         </div>
-
 
 
                         <div class="product-card">
@@ -258,13 +309,21 @@
                                 <b>৳6,073</b>
 
 
-                                <form action="../controller/addToCart.php" method="post">
+                                <form
+                                    action="../controller/addToCart.php"
+                                    method="post"
+                                >
 
-                                    <input type="hidden"
+                                    <input
+                                        type="hidden"
                                         name="product_name"
-                                        value="Realme Buds T300">
+                                        value="Realme Buds T300"
+                                    >
 
-                                    <button type="submit" class="add-cart">
+                                    <button
+                                        type="submit"
+                                        class="add-cart"
+                                    >
                                         Add to Cart
                                     </button>
 
@@ -284,6 +343,62 @@
         </div>
 
     </div>
+
+
+    <script>
+
+        lucide.createIcons();
+
+
+        const searchInput = document.getElementById("searchInput");
+
+        const productResults = document.getElementById("productResults");
+
+        const sectionTitle = document.getElementById("sectionTitle");
+
+
+        searchInput.addEventListener("input", function () {
+
+            const search = searchInput.value.trim();
+
+
+            if (search === "") {
+
+                location.reload();
+
+                return;
+
+            }
+
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.open(
+                "GET",
+                "../controller/searchProducts.php?search=" + encodeURIComponent(search),
+                true
+            );
+
+
+            xhr.onreadystatechange = function () {
+
+                if (xhr.readyState === 4 && xhr.status === 200) {
+
+                    productResults.innerHTML = xhr.responseText;
+
+                    sectionTitle.innerText = "Search Results";
+
+                }
+
+            };
+
+
+            xhr.send();
+
+        });
+
+    </script>
+
 
 </body>
 

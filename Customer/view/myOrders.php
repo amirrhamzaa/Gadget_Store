@@ -12,6 +12,7 @@ $orders = $db->getOrders($connection);
 <head>
 <title>My Orders - Gadget Store</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body class="orders-page">
@@ -21,7 +22,9 @@ $orders = $db->getOrders($connection);
 <div class="sidebar">
 
 <div class="logo-area">
-<div class="logo-icon">🛍️</div>
+<div class="logo-icon">
+<i data-lucide="shopping-bag"></i>
+</div>
 <label>Gadget Store</label>
 </div>
 
@@ -45,7 +48,9 @@ $orders = $db->getOrders($connection);
 
 </div>
 
-<a href="logout.php" class="nav-item logout">
+<a href="../controller/logout.php"
+   class="nav-item logout"
+   onclick="return confirm('Are you sure you want to logout?');">
 <label>Logout</label>
 </a>
 
@@ -162,6 +167,10 @@ View Order
 </div>
 
 </div>
+
+<script>
+lucide.createIcons();
+</script>
 
 </body>
 </html>
