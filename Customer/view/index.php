@@ -5,7 +5,10 @@ require_once("../model/DatabaseConnection.php");
 $db = new DatabaseConnection();
 $connection = $db->openConnection();
 
-$sql = "SELECT * FROM products WHERE status = 'Active'";
+$sql = "SELECT *
+        FROM products
+        WHERE status = 'Active'";
+
 $result = $connection->query($sql);
 
 ?>
@@ -74,7 +77,6 @@ $result = $connection->query($sql);
 
         <div class="main-area">
 
-
             <div class="topbar">
 
                 <div class="search-box">
@@ -96,7 +98,6 @@ $result = $connection->query($sql);
 
                 <div class="main-column">
 
-
                     <div class="section-header">
 
                         <h2 id="sectionTitle">
@@ -110,17 +111,16 @@ $result = $connection->query($sql);
                     </div>
 
 
-                    <div class="products-grid" id="productResults">
-
+                    <div
+                        class="products-grid"
+                        id="productResults"
+                    >
 
                         <?php while ($product = $result->fetch_assoc()) { ?>
 
-
                             <div class="product-card">
 
-
                                 <div class="product-image">
-
 
                                     <?php if (!empty($product["image"])) { ?>
 
@@ -130,7 +130,6 @@ $result = $connection->query($sql);
                                         >
 
                                     <?php } ?>
-
 
                                 </div>
 
@@ -159,8 +158,8 @@ $result = $connection->query($sql);
 
                                         <input
                                             type="hidden"
-                                            name="product_id"
-                                            value="<?php echo $product["id"]; ?>"
+                                            name="product_name"
+                                            value="<?php echo $product["product_name"]; ?>"
                                         >
 
 
@@ -173,15 +172,11 @@ $result = $connection->query($sql);
 
                                     </form>
 
-
                                 </div>
-
 
                             </div>
 
-
                         <?php } ?>
-
 
                     </div>
 
@@ -211,7 +206,6 @@ $result = $connection->query($sql);
 
         searchInput.addEventListener("input", function () {
 
-
             const search =
                 searchInput.value.trim();
 
@@ -221,7 +215,6 @@ $result = $connection->query($sql);
                 location.reload();
 
                 return;
-
             }
 
 
@@ -239,7 +232,6 @@ $result = $connection->query($sql);
 
             xhr.onreadystatechange = function () {
 
-
                 if (
                     xhr.readyState === 4 &&
                     xhr.status === 200
@@ -250,7 +242,6 @@ $result = $connection->query($sql);
 
                     sectionTitle.innerText =
                         "Search Results";
-
                 }
 
             };
@@ -261,7 +252,6 @@ $result = $connection->query($sql);
         });
 
     </script>
-
 
 </body>
 

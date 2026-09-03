@@ -1,4 +1,3 @@
-
 <?php
 
 class DatabaseConnection
@@ -11,7 +10,12 @@ class DatabaseConnection
         $db_password = "123456";
         $db_name = "gadget_store";
 
-        $connection = new mysqli($db_host, $db_user, $db_password, $db_name);
+        $connection = new mysqli(
+            $db_host,
+            $db_user,
+            $db_password,
+            $db_name
+        );
 
         if ($connection->connect_error) {
             die("Failed to connect database. " . $connection->connect_error);
@@ -36,7 +40,8 @@ class DatabaseConnection
 
             if ($stock > 0) {
 
-                $checkSql = "SELECT * FROM $tableName
+                $checkSql = "SELECT *
+                             FROM $tableName
                              WHERE product_name = '$product_name'";
 
                 $checkResult = $connection->query($checkSql);
@@ -203,7 +208,9 @@ class DatabaseConnection
 
     function getOrders($connection)
     {
-        $sql = "SELECT * FROM orders ORDER BY id DESC";
+        $sql = "SELECT *
+                FROM orders
+                ORDER BY id DESC";
 
         return $connection->query($sql);
     }
@@ -223,4 +230,3 @@ class DatabaseConnection
 }
 
 ?>
-
