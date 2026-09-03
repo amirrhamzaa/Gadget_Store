@@ -104,9 +104,6 @@ navItems.forEach(item => {
 
 });
 
-
-/* Restore whichever tab was active before a reload (e.g. after
-   saving a product/order), instead of always resetting to Dashboard. */
 (function restoreActivePage() {
 
     const hash = window.location.hash.replace("#", "");
@@ -914,7 +911,17 @@ if (userRoleFilter) userRoleFilter.addEventListener("change", function () {
    INITIALIZE
 ===================================================== */
 
-showPage("dashboard");
+const currentHash = window.location.hash.replace("#", "");
+
+if (
+    currentHash &&
+    document.getElementById(currentHash) &&
+    Object.prototype.hasOwnProperty.call(pageNames, currentHash)
+) {
+    showPage(currentHash);
+} else {
+    showPage("dashboard");
+}
 
 refreshIcons();
 

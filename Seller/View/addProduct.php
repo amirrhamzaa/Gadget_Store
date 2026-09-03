@@ -34,11 +34,12 @@
     Account Settings
 </a>
 
-    <div class="logout">
-    <div class="logout">
-    <a href="#">Logout</a>
+<div class="logout">
+    <a href="../Controller/logout.php"
+       onclick="return confirm('Are you sure you want to logout?');">
+        Logout
+    </a>
 </div>
-    </div>
 
 </div>
 
