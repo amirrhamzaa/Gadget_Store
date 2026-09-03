@@ -6,7 +6,7 @@ class DatabaseConnection
     {
         $db_host = "localhost";
         $db_user = "root";
-        $db_password = "";
+        $db_password = "123456";
         $db_name = "gadget_store";
 
         $connection = new mysqli(
