@@ -5,6 +5,9 @@ require_once("../model/DatabaseConnection.php");
 $db = new DatabaseConnection();
 $connection = $db->openConnection();
 
+$sql = "SELECT * FROM products WHERE status = 'Active'";
+$result = $connection->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -110,228 +113,74 @@ $connection = $db->openConnection();
                     <div class="products-grid" id="productResults">
 
 
-                        <div class="product-card">
+                        <?php while ($product = $result->fetch_assoc()) { ?>
 
-                            <div class="product-image laptop-product">
 
-                                <div class="mini-laptop">
+                            <div class="product-card">
 
-                                    <div class="mini-screen"></div>
 
-                                    <div class="mini-base"></div>
+                                <div class="product-image">
+
+
+                                    <?php if (!empty($product["image"])) { ?>
+
+                                        <img
+                                            src="../../Admin/view/<?php echo $product["image"]; ?>"
+                                            alt="<?php echo $product["product_name"]; ?>"
+                                        >
+
+                                    <?php } ?>
+
 
                                 </div>
 
-                            </div>
+
+                                <div class="product-info">
+
+                                    <h3>
+                                        <?php echo $product["product_name"]; ?>
+                                    </h3>
 
 
-                            <div class="product-info">
-
-                                <h3>Dell Inspiron 15</h3>
-
-                                <p>
-                                    15.6” FHD, Intel i5 12th Gen,
-                                    <br>
-                                    8GB RAM, 512GB SSD
-                                </p>
-
-                                <b>৳85,039</b>
+                                    <p>
+                                        <?php echo $product["description"]; ?>
+                                    </p>
 
 
-                                <form
-                                    action="../controller/addToCart.php"
-                                    method="post"
-                                >
+                                    <b>
+                                        ৳<?php echo $product["price"]; ?>
+                                    </b>
 
-                                    <input
-                                        type="hidden"
-                                        name="product_name"
-                                        value="Dell Inspiron 15"
+
+                                    <form
+                                        action="../controller/addToCart.php"
+                                        method="post"
                                     >
 
-                                    <button
-                                        type="submit"
-                                        class="add-cart"
-                                    >
-                                        Add to Cart
-                                    </button>
-
-                                </form>
-
-                            </div>
-
-                        </div>
+                                        <input
+                                            type="hidden"
+                                            name="product_id"
+                                            value="<?php echo $product["id"]; ?>"
+                                        >
 
 
-                        <div class="product-card">
+                                        <button
+                                            type="submit"
+                                            class="add-cart"
+                                        >
+                                            Add to Cart
+                                        </button>
 
-                            <div class="product-image">
+                                    </form>
 
-                                <div class="headphone">
-
-                                    <div class="headband"></div>
-
-                                    <div class="ear left"></div>
-
-                                    <div class="ear right"></div>
 
                                 </div>
 
-                            </div>
-
-
-                            <div class="product-info">
-
-                                <h3>Sony WH-CH520</h3>
-
-                                <p>
-                                    Wireless On-Ear Headphones,
-                                    <br>
-                                    Up to 50H Battery
-                                </p>
-
-                                <b>৳7,287</b>
-
-
-                                <form
-                                    action="../controller/addToCart.php"
-                                    method="post"
-                                >
-
-                                    <input
-                                        type="hidden"
-                                        name="product_name"
-                                        value="Sony WH-CH520"
-                                    >
-
-                                    <button
-                                        type="submit"
-                                        class="add-cart"
-                                    >
-                                        Add to Cart
-                                    </button>
-
-                                </form>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="product-card">
-
-                            <div class="product-image">
-
-                                <div class="smartwatch">
-
-                                    <div class="watch-screen">
-                                        12:45
-                                    </div>
-
-                                    <div class="watch-strap top"></div>
-
-                                    <div class="watch-strap bottom"></div>
-
-                                </div>
 
                             </div>
 
 
-                            <div class="product-info">
-
-                                <h3>boAt Wave Flex</h3>
-
-                                <p>
-                                    1.83” Display, Bluetooth Calling,
-                                    <br>
-                                    100+ Sports Modes
-                                </p>
-
-                                <b>৳3,643</b>
-
-
-                                <form
-                                    action="../controller/addToCart.php"
-                                    method="post"
-                                >
-
-                                    <input
-                                        type="hidden"
-                                        name="product_name"
-                                        value="boAt Wave Flex"
-                                    >
-
-                                    <button
-                                        type="submit"
-                                        class="add-cart"
-                                    >
-                                        Add to Cart
-                                    </button>
-
-                                </form>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="product-card">
-
-                            <div class="product-image">
-
-                                <div class="earbuds">
-
-                                    <div class="bud bud-left"></div>
-
-                                    <div class="bud bud-right"></div>
-
-                                    <div class="case">
-
-                                        <div class="case-inner"></div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="product-info">
-
-                                <h3>Realme Buds T300</h3>
-
-                                <p>
-                                    30dB ANC, 360° Spatial Audio,
-                                    <br>
-                                    40H Total Playback
-                                </p>
-
-                                <b>৳6,073</b>
-
-
-                                <form
-                                    action="../controller/addToCart.php"
-                                    method="post"
-                                >
-
-                                    <input
-                                        type="hidden"
-                                        name="product_name"
-                                        value="Realme Buds T300"
-                                    >
-
-                                    <button
-                                        type="submit"
-                                        class="add-cart"
-                                    >
-                                        Add to Cart
-                                    </button>
-
-                                </form>
-
-                            </div>
-
-                        </div>
+                        <?php } ?>
 
 
                     </div>
@@ -350,16 +199,21 @@ $connection = $db->openConnection();
         lucide.createIcons();
 
 
-        const searchInput = document.getElementById("searchInput");
+        const searchInput =
+            document.getElementById("searchInput");
 
-        const productResults = document.getElementById("productResults");
+        const productResults =
+            document.getElementById("productResults");
 
-        const sectionTitle = document.getElementById("sectionTitle");
+        const sectionTitle =
+            document.getElementById("sectionTitle");
 
 
         searchInput.addEventListener("input", function () {
 
-            const search = searchInput.value.trim();
+
+            const search =
+                searchInput.value.trim();
 
 
             if (search === "") {
@@ -371,22 +225,31 @@ $connection = $db->openConnection();
             }
 
 
-            const xhr = new XMLHttpRequest();
+            const xhr =
+                new XMLHttpRequest();
+
 
             xhr.open(
                 "GET",
-                "../controller/searchProducts.php?search=" + encodeURIComponent(search),
+                "../controller/searchProducts.php?search="
+                + encodeURIComponent(search),
                 true
             );
 
 
             xhr.onreadystatechange = function () {
 
-                if (xhr.readyState === 4 && xhr.status === 200) {
 
-                    productResults.innerHTML = xhr.responseText;
+                if (
+                    xhr.readyState === 4 &&
+                    xhr.status === 200
+                ) {
 
-                    sectionTitle.innerText = "Search Results";
+                    productResults.innerHTML =
+                        xhr.responseText;
+
+                    sectionTitle.innerText =
+                        "Search Results";
 
                 }
 
