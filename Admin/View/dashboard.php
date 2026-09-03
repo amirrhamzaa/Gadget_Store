@@ -927,8 +927,18 @@ if ($currentAdminId > 0) {
 
 
 
-<script>window.GADGET_CATEGORIES = <?= json_encode($categoryNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;</script>
-<script>window.GADGET_ADMIN = <?= json_encode($currentAdmin, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;</script>
+<script>
+    window.GADGET_CATEGORIES = <?= json_encode($categoryNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+</script>
+
+<script>
+    window.GADGET_ADMIN = <?= json_encode($currentAdmin, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+</script>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<!-- Your JavaScript -->
 <script src="script.js"></script>
 
 </body>
